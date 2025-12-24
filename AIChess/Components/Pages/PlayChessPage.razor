@@ -1,0 +1,192 @@
+﻿@page "/play"
+@using global::Chess
+@using Radzen.Blazor.Rendering
+@inherits AppComponentBase
+<PageTitle>Chess vs LLMs</PageTitle>
+
+<div class="main-container">
+    <RadzenRow>
+        <RadzenColumn SizeLG="7">
+            <div class="chess-section">
+                <div class="turn-indicator">
+                    <h5 class="text--center">Turn: @AppState.ChessBoard.Turn.Name</h5>
+                    @* <div class="text-center">Fen: @AppState.ChessBoard.ToFen()</div> *@
+                    @* @if (_showCheck)
+                    {
+                        <div>
+                            <h4>Check!</h4>
+                            <p>
+                                <img src="@($"images/{_checkColor}-king.png")"/>
+                                (@_checkColor)'s King is in check!
+                            </p>
+                        </div>
+                    } *@
+                    
+                </div>
+				
+                <div class="chess-board">
+                    @foreach (var space in AppState.BoardPieces)
+                    {
+                        <BoardSpace BoardPiece="space"></BoardSpace>
+                    }
+                </div>
+				
+                <div class="chess-controls">
+                    <button @ref="_button" @onclick="@(args => _popup!.ToggleAsync(_button!.GetValueOrDefault()))">Load</button>
+                    <button @onclick="OpenLoadSaved">Load Saved</button>
+                    <button @onclick="Cancel">Cancel Move</button>
+                    <button @onclick="Refresh">Refresh</button>
+                    <button @onclick="Save">Save As</button>
+                    <button @onclick="Best">Cheat</button>
+                    <RadzenToggleButton @bind-Value="_showAvailableMoves" Icon="visibility" ToggleIcon="visibility_off" title="Show/Hide Available Moves" Size="ButtonSize.ExtraSmall"></RadzenToggleButton>
+                </div>
+				
+                <Popup @ref="_popup" Lazy=true Style="display:none;position:absolute;height:100px;width:600px;padding:5px;border:var(--rz-panel-border);background-color:var(--rz-panel-background-color);">
+                    <RadzenFormField Style="width:100%">
+                        <RadzenTextBox @bind-Value="@_fen" Style="width:100%"></RadzenTextBox>
+                    </RadzenFormField>
+                    <RadzenButton Text="Load Fen" Size="ButtonSize.ExtraSmall" Click="Load"></RadzenButton>
+                </Popup>
+				
+                @if(_showAvailableMoves)
+                {
+                    <div class="available-moves">
+                        @foreach (var move in AppState.ChessBoard.Moves())
+                        {
+                            <span class="move-option">@move.OriginalPosition.ToString() → @move.NewPosition.ToString()</span>
+                        }
+                    </div>
+                }
+            </div>
+        </RadzenColumn>
+		
+        <RadzenColumn SizeLG="5">
+            <!-- Chat Interface -->
+            <RadzenTabs Style="background-color:#1a202c">
+            <Tabs>
+                <RadzenTabsItem Text="Chess Chat">
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <RadzenIcon Icon="chat" />
+                            <RadzenText TextStyle="TextStyle.Subtitle2" Text="Chat with AI" Style="margin-left: 8px; color: #e2e8f0;"></RadzenText>
+                            <div class="chat-status"></div>
+                        </div>
+                        <div class="chat-messages">
+                            @foreach (var message in _moveMessages)
+                            {
+                                <div class="@($"chat-message {message.Sender}")">
+                                    <span>@((MarkupString)AsHtml(message.Message))</span>
+                                    <span>@message.Time.ToString("g")</span>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" placeholder="Type your message..." @bind-value="@_chatInput" />
+                            <button @onclick="SendChat">
+                                <RadzenIcon Icon="send" />
+                            </button>
+                        </div>
+                    </div>
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="Game Log">
+                    <div style="display:flex; flex-direction:row">
+                        <div class="game-log-container">
+                            <div class="game-log-header">
+                                <RadzenIcon Icon="schedule" />
+                                <RadzenText TextStyle="TextStyle.Subtitle2" Text="Game Log" Style="margin-left: 8px;color:white"></RadzenText>
+                            </div>
+                            <div class="game-log-entries">
+
+                                @foreach (var log in AppState.Logs)
+                                {
+                                <div class="game-log-entry">
+                                    <span>@(AppState.Logs.IndexOf(log)+1).</span>
+                                    <span class="move-notation">@log</span>
+                                </div>
+                                }
+                            </div>
+                        </div>
+
+
+                        <div class="captured-pieces-container">
+                            <div class="captured-pieces-section">
+                                <h4>White captured</h4>
+                                <div class="captured-pieces-grid">
+                                    @foreach (var capturedWhite in AppState.ChessBoard.CapturedWhite)
+                                    {
+                                    <div class="captured-piece">
+                                        <img src="@($"images/{capturedWhite.Color.ToString().ToLower()}-{capturedWhite.Type.ToString().ToLower()}.png")" style="width:25px;height:25px" alt="@($"{capturedWhite.Color.ToString().ToLower()}-{capturedWhite.Type.ToString().ToLower()}")" />
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="captured-pieces-section">
+                                <h4>Black captured</h4>
+                                <div class="captured-pieces-grid">
+                                    @foreach (var captured in AppState.ChessBoard.CapturedBlack)
+                                    {
+                                    <div class="captured-piece">
+                                        <img src="@($"images/{captured.Color.ToString().ToLower()}-{captured.Type.ToString().ToLower()}.png")" style="width:25px;height:25px" alt="@($"{captured.Color.ToString().ToLower()}-{captured.Type.ToString().ToLower()}")" />
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="captured-pieces-section">
+                                <h4>Game State</h4>
+                                <div class="game-state-info">
+                                    <p>Advantage <strong>@AppState.GameStateEval?.FavoredColor</strong> by <strong>@AppState.GameStateEval?.Evaluation</strong> pawns equivalent</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </RadzenTabsItem>
+                </Tabs>
+            </RadzenTabs>
+        </RadzenColumn>
+    </RadzenRow>
+	
+	
+</div>
+@code{
+
+    private bool _isBlackChecked;
+    private bool _isWhiteChecked;
+    private void HandleBlackKingChecked(object? sender, CheckEventArgs e)
+    {
+        _showCheck = e.IsChecked;
+        if (_isBlackChecked && _showCheck) return;
+        _checkColor = "black";
+        var imgSrc = $"images/{_checkColor}-king.png";
+        Console.WriteLine($"Black King Check: {_showCheck}");
+        if (_showCheck && !_isBlackChecked)
+        {
+            _isBlackChecked = true;
+            NotificationService.Notify(new NotificationMessage()
+            {
+                Duration = 10000, SummaryContent = ns => @<div><img src='@imgSrc'/>'s King is in check!</div>
+            });
+        }
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleWhiteKingChecked(object? sender, CheckEventArgs e)
+    {
+        _showCheck = e.IsChecked;
+        if (_isWhiteChecked && _showCheck) return;
+        _checkColor = "white";
+        var imgSrc = $"images/{_checkColor}-king.png";
+        Console.WriteLine($"White King Check: {_showCheck}");
+        if (_showCheck)
+        {
+            _isWhiteChecked = true;
+            NotificationService.Notify(new NotificationMessage()
+            {
+                Duration = 10000, SummaryContent = ns => @<div><img src='@imgSrc'/>'s King is in check!</div>
+            });
+        }
+        InvokeAsync(StateHasChanged);
+    }
+
+}

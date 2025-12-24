@@ -1,0 +1,34 @@
+﻿@inherits LayoutComponentBase
+
+<RadzenLayout>
+	@* <RadzenHeader Style="height:2.5rem;">
+		<RadzenRow>
+			<RadzenColumn Size="2">
+				<RadzenSidebarToggle Click="@(() => _sidebarExpanded = !_sidebarExpanded)" />
+			</RadzenColumn>
+			<RadzenColumn Size="8">
+				<RadzenText TextAlign="TextAlign.Center" Text="AI Chess Player" TextStyle="TextStyle.DisplayH6" Style="margin-top:.6rem"></RadzenText>
+			</RadzenColumn>
+			<RadzenColumn Size="2">
+				<Login></Login>
+			</RadzenColumn>
+		</RadzenRow>
+	</RadzenHeader> *@
+	<RadzenSidebar Responsive="false" @bind-Expanded="@_sidebarExpanded" style="width:250px;overflow:auto" >
+		<RadzenPanelMenu>
+			<RadzenPanelMenuItem Text="Home" Icon="home" Path="" />
+			<RadzenPanelMenuItem Text="Play Chess" Icon="grid_view" Path="play" />
+			<RadzenPanelMenuItem Text="Talk Chess" Icon="question_answer" Path="chat" />
+		</RadzenPanelMenu>
+	</RadzenSidebar>
+	<RadzenBody Style="padding: 0px 0px 0 0; height:100vh" @onclick="CloseSidebars">
+		@Body
+	</RadzenBody>
+</RadzenLayout>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+<RadzenComponents />

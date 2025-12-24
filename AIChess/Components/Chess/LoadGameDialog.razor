@@ -1,0 +1,35 @@
+@using AIChess.Components
+@using AIChess.Services
+@using Radzen
+@using Radzen.Blazor
+@inherits AppComponentBase
+@inject AIChess.Services.GameStorageService Storage
+
+<RadzenCard Style="min-width:360px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <RadzenTextBox @bind-Value="_filter" Placeholder="Filter by name" Style="flex:1" />
+        <RadzenButton Icon="refresh" Size="ButtonSize.Small" Click="Reload" Style="margin-left:8px" />
+    </div>
+    <div style="max-height:300px;overflow:auto">
+        @if (_games.Count == 0)
+        {
+            <div>No saved games.</div>
+        }
+        else
+        {
+            foreach (var g in Filtered)
+            {
+                <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #4a5568;padding:6px 0">
+                    <div>
+                        <div style="font-weight:600">@g.Name</div>
+                        <div style="font-size:12px;color:#a0aec0">@g.UpdatedAt.ToLocalTime().ToString("g")</div>
+                    </div>
+                    <div style="display:flex;gap:8px">
+                        <RadzenButton Text="Load" Size="ButtonSize.Small" Click="@(() => Load(g))" />
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Click="@(() => Delete(g))" />
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</RadzenCard>

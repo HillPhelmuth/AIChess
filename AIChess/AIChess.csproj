@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>260669de-111e-4864-a2ec-c919b461fd39</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.5.0" />
+    <PackageReference Include="Markdig" Version="0.41.3" />
+    
+    <PackageReference Include="Radzen.Blazor" Version="7.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AIChess.Core\AIChess.Core.csproj" />
+    <ProjectReference Include="..\AIChess.ModelEvals\AIChess.ModelEvals.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+@using AIChess.Components
+@using Radzen
+@using Radzen.Blazor
+@inherits AppComponentBase
+@inject AIChess.Services.GameStorageService Storage
+
+<RadzenTemplateForm Data="this" Style="min-width:320px;">
+    <div style="display:flex;flex-direction:column;gap:12px">
+        <RadzenTextBox @bind-Value="_name" Placeholder="Game name" Style="width:100%" />
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+            <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="@(args => DialogService.Close(false))" />
+            <RadzenButton Disabled="@_busy" Text="Save" Click="SaveAsync" />
+        </div>
+        @if(!string.IsNullOrEmpty(_error))
+        {
+            <div style="color:#f87171">@_error</div>
+        }
+    </div>
+</RadzenTemplateForm>

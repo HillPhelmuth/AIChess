@@ -1,0 +1,32 @@
+{
+  "Model1Result": {
+    "AIModel": "openai/gpt-4.1-nano",
+    "Wins": 0,
+    "WinsOnPoints": 2,
+    "Losses": 2,
+    "Draws": 1,
+    "Failures": 0,
+    "FinalBoardStates": [
+      "r1bqk2r/p1pppp1p/2nn1bp1/1p6/3NN3/8/PPPPPPPP/R1BQKB1R w KQkq - 6 9",
+      "1n2Qr2/1bkPp2p/r1p4b/p2PN1p1/5PP1/4pR2/PPP4P/R5K1 b - - 7 24",
+      "rnb1kb1r/p2qp1pp/5n2/1ppp1p2/2BPPPP1/5N2/PPP4P/RNBQK2R w KQkq - 3 7",
+      "rnbqkbnr/ppp2ppp/8/3pp3/3PP3/8/PPP1BPPP/RNBQK1NR b KQkq d3 0 3",
+      "rnb1kbnr/ppqp1pp1/8/7p/4p3/8/PPPPPPPP/1RBQKBNR w Kkq - 0 5"
+    ]
+  },
+  "Model2Result": {
+    "AIModel": "google/gemini-2.0-flash-lite-001",
+    "Wins": 0,
+    "WinsOnPoints": 2,
+    "Losses": 2,
+    "Draws": 1,
+    "Failures": 0,
+    "FinalBoardStates": [
+      "r1bqk2r/p1pppp1p/2nn1bp1/1p6/3NN3/8/PPPPPPPP/R1BQKB1R w KQkq - 6 9",
+      "1n2Qr2/1bkPp2p/r1p4b/p2PN1p1/5PP1/4pR2/PPP4P/R5K1 b - - 7 24",
+      "rnb1kb1r/p2qp1pp/5n2/1ppp1p2/2BPPPP1/5N2/PPP4P/RNBQK2R w KQkq - 3 7",
+      "rnbqkbnr/ppp2ppp/8/3pp3/3PP3/8/PPP1BPPP/RNBQK1NR b KQkq d3 0 3",
+      "rnb1kbnr/ppqp1pp1/8/7p/4p3/8/PPPPPPPP/1RBQKBNR w Kkq - 0 5"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+﻿@inherits AppComponentBase
+<div class="piece @SelectedCss @PossibleCss" @onclick=HandleClick>
+	@if (BoardPiece.Piece is not null)
+	{
+		<img title="@($"click to pick up {BoardPiece.Piece.Color} {BoardPiece.Piece.Type}, then click to drop it")" src="@($"images/{BoardPiece.Piece.Color.ToString().ToLower()}-{BoardPiece.Piece.Type.ToString().ToLower()}.png")" />
+	}
+</div>

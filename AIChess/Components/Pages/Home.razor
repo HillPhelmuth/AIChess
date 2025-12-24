@@ -1,0 +1,73 @@
+﻿@page "/"
+@using AIChess.Core.Models
+@inherits AppComponentBase
+<PageTitle>Home</PageTitle>
+
+<div class="home-container">	<!-- Hero Header Section -->
+	<div class="hero-section">
+		<div class="chess-hero-image">
+			<!-- Placeholder for chess-themed image -->
+			<img src="images/chess-play-image-chatgpt.png" alt="Chess game scene" />
+		</div>
+	</div>
+
+	<div class="game-setup-card">
+		<div class="title-section">
+			<div>
+				
+				<RadzenText TextStyle="TextStyle.H4" TextAlign="TextAlign.Center" Style="color: #ffffff; margin-bottom: 0px; font-weight: 600;"><RadzenIcon Icon="military_tech" Style="color: #f6ad55; font-size: 2rem; margin-bottom: 8px;"></RadzenIcon> Create Chess Game</RadzenText>
+			</div>
+			<RadzenText TextStyle="TextStyle.Body2" TextAlign="TextAlign.Center" Style="color: #a0aec0; margin-bottom: 12px; font-style: italic;">
+				Challenge a friend, or if you're looking for a confidence boost, try an LLM.
+			</RadzenText>
+		</div>
+		
+		<RadzenTemplateForm Data=_gameOptions TItem="GameOptions" Submit="SetGameOptions">
+			<div class="form-group">
+				<RadzenLabel Text="White Player" Style="color: #e2e8f0; margin-bottom: 8px; display: block; font-weight: 500;"></RadzenLabel>
+                <RadzenDropDown Data="@(Enum.GetValues<PlayerType>())" @bind-Value=_gameOptions.White 
+                                class="custom-dropdown" Style="width: 100%; background-color: #4a5568; border: 1px solid #2d3748; color: #ffffff;"></RadzenDropDown>
+				<RadzenFormField Text="White Model" Visible="@(_gameOptions.White == PlayerType.AIModel)" Style="width:100%">
+                    <ChildContent>
+                        <RadzenDropDown Name="WhiteModel" Data="AvailableModels" Visible="@(_gameOptions.White == PlayerType.AIModel)" @bind-Value="_gameOptions.WhiteModel" Style="width: 100%; background-color: #4a5568; border: 1px solid #2d3748; color: #ffffff;" AllowFiltering="true"></RadzenDropDown>
+                    </ChildContent>
+                    <Helper>
+                        <RadzenRequiredValidator Component="WhiteModel" Visible="@(_gameOptions.White == PlayerType.AIModel)"></RadzenRequiredValidator>
+                    </Helper>
+				</RadzenFormField>
+			</div>
+			
+			<div class="form-group">
+				<RadzenLabel Text="Black Player" Style="color: #e2e8f0; margin-bottom: 8px; display: block; font-weight: 500;"></RadzenLabel>
+                <RadzenDropDown Data="@(Enum.GetValues<PlayerType>())" @bind-Value=_gameOptions.Black 
+                                class="custom-dropdown" Style="width: 100%; background-color: #4a5568; border: 1px solid #2d3748; color: #ffffff;"></RadzenDropDown>
+				<RadzenFormField Text="Black Model" Visible="@(_gameOptions.Black == PlayerType.AIModel)" Style="width:100%">
+                    <ChildContent>
+                        <RadzenDropDown Name="BlackModel" Data="AvailableModels" Visible="@(_gameOptions.Black == PlayerType.AIModel)" @bind-Value="_gameOptions.BlackModel" Style="width: 100%; background-color: #4a5568; border: 1px solid #2d3748; color: #ffffff;" AllowFiltering="true"></RadzenDropDown>
+                    </ChildContent>
+                    <Helper>
+                        <RadzenRequiredValidator Component="BlackModel" Visible="@(_gameOptions.Black == PlayerType.AIModel)"></RadzenRequiredValidator>
+                    </Helper>
+				</RadzenFormField>
+			</div>
+			
+			<div class="checkbox-group">
+				<RadzenLabel Style="color: #e2e8f0; display: flex; align-items: center; margin-bottom: 12px;">
+					<RadzenCheckBox @bind-Value="_gameOptions.AiOnly" Style="margin-right: 8px;"></RadzenCheckBox>
+					AI Only Mode
+				</RadzenLabel>
+				
+				
+			</div>
+			
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Start Game" Icon="sports_esports"
+                          class="start-game-button" 
+                          Style="width: 100%; padding: 12px; font-size: 16px; font-weight: 600; background-color: #f6ad55; border: none; border-radius: 8px; color: #1a202c;">
+            </RadzenButton>
+            @if (_isDebug)
+            {
+                <RadzenButton IsBusy="_isBusy" BusyText="Evaluating..." Text="Evaluate" Click="@EvaluateModels" Visible="@(_gameOptions.WhiteModel is not null && _gameOptions.BlackModel is not null)"></RadzenButton>
+            }
+        </RadzenTemplateForm>
+	</div>
+</div>

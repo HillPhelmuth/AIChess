@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="AIChess.styles.css" />
+    <link rel="icon" type="image/png" href="AiChessLogo.png" />
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/standard.css">
+    <HeadOutlet @rendermode="InteractiveServer" />
+</head>
+
+<body>
+    <Routes @rendermode="InteractiveServer" />
+    <script src="_framework/blazor.web.js"></script>
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
+    <script>
+        window.copyToCliboard = (text) => {
+            navigator.clipboard.writeText(text).then(() => {
+                console.log('Text copied to clipboard');
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        };
+        window.aiChess = window.aiChess || {};
+        window.aiChess.storage = {
+            getItem: (key) => window.localStorage.getItem(key),
+            setItem: (key, value) => window.localStorage.setItem(key, value),
+            removeItem: (key) => window.localStorage.removeItem(key)
+        };
+        window.aiChess.prompt = (message, defaultValue) => prompt(message, defaultValue ?? '');
+    </script>
+</body>
+
+</html>

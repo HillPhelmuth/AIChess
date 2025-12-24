@@ -1,0 +1,27 @@
+﻿@using AIChess.Core.Helpers
+@inherits AppComponentBase
+
+<RadzenCard Style="display:flex;flex-direction:column;justify-content:center; align-items:center">
+    <RadzenText TextStyle="TextStyle.H5" TextAlign="TextAlign.Center">Game Over!</RadzenText>
+    <RadzenText TextStyle="TextStyle.Subtitle1" Style="@($"color:{EndGameEventArgs?.EndgameInfo.ToEndgameColor(AppState)}")">
+        @(EndGameEventArgs?.EndgameInfo.EndgameType.ToEndgameText() ?? "Unknown Endgame Type")
+    </RadzenText>
+    <RadzenCard Visible="@(EndGameEventArgs.EndgameInfo.WonSide != null)">
+        <RadzenText TextStyle="TextStyle.Body2" TextAlign="TextAlign.Center">
+            @if (EndGameEventArgs.EndgameInfo.WonSide == null)
+            {
+                <span>It's a draw!</span>
+            }
+            else
+            {
+                <span>
+                 @($"{EndGameEventArgs.EndgameInfo.WonSide.ToString().ToUpper()} wins!")
+                 <br/>
+                    <img src="@($"images/{EndGameEventArgs.EndgameInfo.WonSide.ToString().ToLower()}-wins.png")" style="width:125px;height:125px" alt="@($"{EndGameEventArgs.EndgameInfo.WonSide.ToString().ToLower()}-wins")" />
+                </span>
+            }
+        </RadzenText>
+    </RadzenCard>
+    <RadzenButton Click="@(() => DialogService.Close(true))" Text=Start New Game"></RadzenButton>
+    <RadzenButton Click="Stay" Text="Study Board"></RadzenButton>
+</RadzenCard>

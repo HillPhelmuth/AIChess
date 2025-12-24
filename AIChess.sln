@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11304.174
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIChess", "AIChess\AIChess.csproj", "{D3E64023-164D-4879-BED4-58ECC3FB249F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIChess.Core", "AIChess.Core\AIChess.Core.csproj", "{0866934D-5546-4BBD-AD27-E8FFE350A404}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessLibrary", "ChessLibrary\ChessLibrary.csproj", "{9ED8D1C1-74B6-4EA6-A4E8-49A50F9D2801}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIChess.ModelEvals", "AIChess.ModelEvals\AIChess.ModelEvals.csproj", "{6BF9CC29-DABE-460E-B474-6AF1A921811C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3E64023-164D-4879-BED4-58ECC3FB249F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3E64023-164D-4879-BED4-58ECC3FB249F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3E64023-164D-4879-BED4-58ECC3FB249F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3E64023-164D-4879-BED4-58ECC3FB249F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0866934D-5546-4BBD-AD27-E8FFE350A404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0866934D-5546-4BBD-AD27-E8FFE350A404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0866934D-5546-4BBD-AD27-E8FFE350A404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0866934D-5546-4BBD-AD27-E8FFE350A404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ED8D1C1-74B6-4EA6-A4E8-49A50F9D2801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ED8D1C1-74B6-4EA6-A4E8-49A50F9D2801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ED8D1C1-74B6-4EA6-A4E8-49A50F9D2801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ED8D1C1-74B6-4EA6-A4E8-49A50F9D2801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BF9CC29-DABE-460E-B474-6AF1A921811C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BF9CC29-DABE-460E-B474-6AF1A921811C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BF9CC29-DABE-460E-B474-6AF1A921811C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BF9CC29-DABE-460E-B474-6AF1A921811C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D36DD797-742B-4475-B9B6-968644B0D1C2}
+	EndGlobalSection
+EndGlobal

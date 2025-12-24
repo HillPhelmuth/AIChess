@@ -1,0 +1,2091 @@
+{
+  "Headers": {},
+  "LoadedFromFen": false,
+  "Turn": {
+    "AsChar": "w",
+    "Name": "White",
+    "Value": 1
+  },
+  "WhiteKingChecked": false,
+  "BlackKingChecked": false,
+  "WhiteKing": {
+    "HasValue": true,
+    "HasValueX": true,
+    "HasValueY": true,
+    "X": 4,
+    "Y": 0
+  },
+  "BlackKing": {
+    "HasValue": true,
+    "HasValueX": true,
+    "HasValueY": true,
+    "X": 3,
+    "Y": 3
+  },
+  "CapturedWhite": [
+    {
+      "Color": {
+        "AsChar": "w",
+        "Name": "White",
+        "Value": 1
+      },
+      "Type": {
+        "AsChar": "p",
+        "Name": "Pawn",
+        "Value": 1
+      }
+    },
+    {
+      "Color": {
+        "AsChar": "w",
+        "Name": "White",
+        "Value": 1
+      },
+      "Type": {
+        "AsChar": "p",
+        "Name": "Pawn",
+        "Value": 1
+      }
+    },
+    {
+      "Color": {
+        "AsChar": "w",
+        "Name": "White",
+        "Value": 1
+      },
+      "Type": {
+        "AsChar": "b",
+        "Name": "Bishop",
+        "Value": 4
+      }
+    },
+    {
+      "Color": {
+        "AsChar": "w",
+        "Name": "White",
+        "Value": 1
+      },
+      "Type": {
+        "AsChar": "p",
+        "Name": "Pawn",
+        "Value": 1
+      }
+    }
+  ],
+  "CapturedBlack": [
+    {
+      "Color": {
+        "AsChar": "b",
+        "Name": "Black",
+        "Value": 2
+      },
+      "Type": {
+        "AsChar": "p",
+        "Name": "Pawn",
+        "Value": 1
+      }
+    },
+    {
+      "Color": {
+        "AsChar": "b",
+        "Name": "Black",
+        "Value": 2
+      },
+      "Type": {
+        "AsChar": "p",
+        "Name": "Pawn",
+        "Value": 1
+      }
+    },
+    {
+      "Color": {
+        "AsChar": "b",
+        "Name": "Black",
+        "Value": 2
+      },
+      "Type": {
+        "AsChar": "n",
+        "Name": "Knight",
+        "Value": 3
+      }
+    }
+  ],
+  "EndGame": null,
+  "IsEndGame": false,
+  "ExecutedMoves": [
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 3
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "b4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 6
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 4
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "d5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "n",
+          "Name": "Knight",
+          "Value": 3
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 0
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 2
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Nc3"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "k",
+          "Name": "King",
+          "Value": 6
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 7
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 6
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Kd7"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 3
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "f4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 6
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 4
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "b5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 2
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "h3"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 6
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 5
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "f6"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 2
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "g3"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "b",
+          "Name": "Bishop",
+          "Value": 4
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 7
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 5
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Ba6"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 3
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "e4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "q",
+          "Name": "Queen",
+          "Value": 5
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 7
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 7
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Qc8"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "n",
+          "Name": "Knight",
+          "Value": 3
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 2
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 4
+      },
+      "CapturedPiece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Nxb5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "q",
+          "Name": "Queen",
+          "Value": 5
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 7
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 6
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Qb7"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "n",
+          "Name": "Knight",
+          "Value": 3
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 4
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 2
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Na3"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "q",
+          "Name": "Queen",
+          "Value": 5
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 6
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 5
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Qb6"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "n",
+          "Name": "Knight",
+          "Value": 3
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 0
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 1
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Ne2"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "b",
+          "Name": "Bishop",
+          "Value": 4
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 5
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 7
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Bc8"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 0
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 0
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Rg1"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "q",
+          "Name": "Queen",
+          "Value": 5
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 5
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 2
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Qe3"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 0
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 1
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Rg2"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 6
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 5
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "h6"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 2
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 3
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "h4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "n",
+          "Name": "Knight",
+          "Value": 3
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 7
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 5
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Nc6"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "n",
+          "Name": "Knight",
+          "Value": 3
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 2
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 0
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Nb1"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "q",
+          "Name": "Queen",
+          "Value": 5
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 2
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 3
+      },
+      "CapturedPiece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Qxf4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 3
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 4
+      },
+      "CapturedPiece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "exd5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "k",
+          "Name": "King",
+          "Value": 6
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 6
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 5
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Kd6"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 2
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "a3"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "n",
+          "Name": "Knight",
+          "Value": 3
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 5
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 3
+      },
+      "CapturedPiece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Nxb4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "n",
+          "Name": "Knight",
+          "Value": 3
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 0
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Ng1"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 7
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 6
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Rh7"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 3
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 4
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "h5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "b",
+          "Name": "Bishop",
+          "Value": 4
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 7
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 4
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Bf5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 0
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 1
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Ra2"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "q",
+          "Name": "Queen",
+          "Value": 5
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 3
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 3
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Qd4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "b",
+          "Name": "Bishop",
+          "Value": 4
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 0
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 2
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Bd3"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "b",
+          "Name": "Bishop",
+          "Value": 4
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 4
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 6
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Bd7"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 2
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 3
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "a4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 6
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 7,
+        "Y": 7
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Rh8"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "b",
+          "Name": "Bishop",
+          "Value": 4
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 2
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 5
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Bg6"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "q",
+          "Name": "Queen",
+          "Value": 5
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 3
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 2
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Qd3"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "b",
+          "Name": "Bishop",
+          "Value": 4
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 5
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 4
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Bf5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "q",
+          "Name": "Queen",
+          "Value": 5
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 2
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 4
+      },
+      "CapturedPiece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "b",
+          "Name": "Bishop",
+          "Value": 4
+        }
+      },
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Qxf5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 6,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 1
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Rf2"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "k",
+          "Name": "King",
+          "Value": 6
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 5
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 4
+      },
+      "CapturedPiece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Kxd5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "p",
+          "Name": "Pawn",
+          "Value": 1
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 2,
+        "Y": 3
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": true,
+      "IsMate": false,
+      "San": "c4\u002B"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "k",
+          "Name": "King",
+          "Value": 6
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 4
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 4
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Ke5"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 1
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Rb2"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 0,
+        "Y": 7
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 7
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Rd8"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 1
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": true,
+      "IsMate": false,
+      "San": "Re2\u002B"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "k",
+          "Name": "King",
+          "Value": 6
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 4
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 3,
+        "Y": 3
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Kd4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "w",
+          "Name": "White",
+          "Value": 1
+        },
+        "Type": {
+          "AsChar": "r",
+          "Name": "Rook",
+          "Value": 2
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 1
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 1,
+        "Y": 3
+      },
+      "CapturedPiece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "n",
+          "Name": "Knight",
+          "Value": 3
+        }
+      },
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Rxb4"
+    },
+    {
+      "HasValue": true,
+      "Piece": {
+        "Color": {
+          "AsChar": "b",
+          "Name": "Black",
+          "Value": 2
+        },
+        "Type": {
+          "AsChar": "q",
+          "Name": "Queen",
+          "Value": 5
+        }
+      },
+      "OriginalPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 5,
+        "Y": 4
+      },
+      "NewPosition": {
+        "HasValue": true,
+        "HasValueX": true,
+        "HasValueY": true,
+        "X": 4,
+        "Y": 4
+      },
+      "CapturedPiece": null,
+      "Parameter": null,
+      "IsCheck": false,
+      "IsMate": false,
+      "San": "Qe5"
+    }
+  ],
+  "MovesToSan": [
+    "b4",
+    "d5",
+    "Nc3",
+    "Kd7",
+    "f4",
+    "b5",
+    "h3",
+    "f6",
+    "g3",
+    "Ba6",
+    "e4",
+    "Qc8",
+    "Nxb5",
+    "Qb7",
+    "Na3",
+    "Qb6",
+    "Ne2",
+    "Bc8",
+    "Rg1",
+    "Qe3",
+    "Rg2",
+    "h6",
+    "h4",
+    "Nc6",
+    "Nb1",
+    "Qxf4",
+    "exd5",
+    "Kd6",
+    "a3",
+    "Nxb4",
+    "Ng1",
+    "Rh7",
+    "h5",
+    "Bf5",
+    "Ra2",
+    "Qd4",
+    "Bd3",
+    "Bd7",
+    "a4",
+    "Rh8",
+    "Bg6",
+    "Qd3",
+    "Bf5",
+    "Qxf5",
+    "Rf2",
+    "Kxd5",
+    "c4\u002B",
+    "Ke5",
+    "Rb2",
+    "Rd8",
+    "Re2\u002B",
+    "Kd4",
+    "Rxb4",
+    "Qe5"
+  ],
+  "MoveIndex": 53,
+  "IsLastMoveDisplayed": true,
+  "LastIrreversibleMoveIndex": 52,
+  "AutoEndgameRules": 0,
+  "StandardiseCastlingPositions": false
+}
