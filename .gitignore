@@ -361,3 +361,16 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/AIChess/board.json
+/AIChess/board.txt
+/AIChess/completed_train_data.jsonl
+/AIChess/completed_validation_data.jsonl
+/AIChess/evaluation_results.json
+/AIChess/evaluation_results_deepseek-chat-v3.1_vs_gpt-oss-120b.json
+/AIChess/evaluation_results_gpt-4.1-nano_vs_gemini-2.0-flash-lite-001.json
+/AIChess/fine_tune_simple.jsonl
+/AIChess/fine_tune_simple2.jsonl
+/AIChess/image.png
+/AIChess/test_fine_tune_simple.jsonl
+/AIChess/test_fine_tune_simple2.jsonl
+/AIChess.Core/Data/new_games_prepared.jsonl
