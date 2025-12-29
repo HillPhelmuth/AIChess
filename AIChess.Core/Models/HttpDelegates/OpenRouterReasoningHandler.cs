@@ -61,7 +61,7 @@ internal class OpenRouterReasoningHandler(HttpMessageHandler innerHandler, ILogg
             {
                 // If parsing fails for property removal, proceed without modification
             }
-            _output.LogInformation(string.Empty);
+            //_output.LogInformation(string.Empty);
         }
 
         // Check if streaming is requested in the content

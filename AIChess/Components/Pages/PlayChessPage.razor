@@ -10,17 +10,7 @@
             <div class="chess-section">
                 <div class="turn-indicator">
                     <h5 class="text--center">Turn: @AppState.ChessBoard.Turn.Name</h5>
-                    @* <div class="text-center">Fen: @AppState.ChessBoard.ToFen()</div> *@
-                    @* @if (_showCheck)
-                    {
-                        <div>
-                            <h4>Check!</h4>
-                            <p>
-                                <img src="@($"images/{_checkColor}-king.png")"/>
-                                (@_checkColor)'s King is in check!
-                            </p>
-                        </div>
-                    } *@
+                   
                     
                 </div>
 				
@@ -37,7 +27,7 @@
                     <button @onclick="Cancel">Cancel Move</button>
                     <button @onclick="Refresh">Refresh</button>
                     <button @onclick="Save">Save As</button>
-                    <button @onclick="Best">Cheat</button>
+                    <button @onclick="Best" title="Use Stockfish API to get best move">Cheat</button>
                     <RadzenToggleButton @bind-Value="_showAvailableMoves" Icon="visibility" ToggleIcon="visibility_off" title="Show/Hide Available Moves" Size="ButtonSize.ExtraSmall"></RadzenToggleButton>
                 </div>
 				

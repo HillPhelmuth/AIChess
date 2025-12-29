@@ -19,16 +19,18 @@ public class EvalEngine
     private readonly ILoggerFactory _loggerFactory;
     private readonly ILogger _logger;
     private readonly IHttpClientFactory _httpClientFactory;
-    private const int MaxHalfMoves = 400; // Prevent endless matches when neither model can convert.
+    private const int MaxHalfMoves = 150; // Prevent endless matches when neither model can convert.
     private readonly AppState _appState;
-    public EvalEngine(IConfiguration configuration, ILoggerFactory loggerFactory, IHttpClientFactory httpClientFactory, AppState appState)
+    private readonly OpenRouterService _openRouterService;
+    public event Action<MatchResult>? MatchCompleted;
+    public EvalEngine(IConfiguration configuration, ILoggerFactory loggerFactory, IHttpClientFactory httpClientFactory, AppState appState, OpenRouterService openRouterService)
     {
 
         _configuration = configuration;
         _loggerFactory = loggerFactory;
         _httpClientFactory = httpClientFactory;
-        this._appState = appState;
-
+        _appState = appState;
+        _openRouterService = openRouterService;
         _logger = _loggerFactory.CreateLogger<EvalEngine>();
 
     }
@@ -51,36 +53,38 @@ public class EvalEngine
         _matchCount = matchCount;
         var model1Result = new EvalResult(_aiModel1);
         var model2Result = new EvalResult(_aiModel2);
-
+        List<MatchResult> matchResults = [];
         for (var index = 0; index < _matchCount; index++)
         {
             var pairing = index % 2 == 0
                 ? (_aiModel1, _aiModel2)
                 : (_aiModel2, _aiModel1);
-
-            var (outcome, finalFen, endgameType) = await RunMatchAsync(pairing.Item1, pairing.Item2);
-            ApplyOutcome(outcome, pairing.Item1, pairing.Item2, model1Result, model2Result, finalFen, endgameType);
+           
+            var matchResult = await RunMatchAsync(pairing.Item1, pairing.Item2);
+            ApplyOutcome(matchResult.Outcome, pairing.Item1, pairing.Item2, model1Result, model2Result);
+            matchResults.Add(matchResult);
+            MatchCompleted?.Invoke(matchResult);
         }
 
-        return new EvalSummary(model1Result, model2Result);
+        return new EvalSummary(model1Result, model2Result, matchResults);
     }
 
-    private record MatchResult(MatchOutcome Outcome, string FinalFen, EndgameType? EndgameType);
+    //private record MatchResult(MatchOutcome Outcome, string FinalFen, EndgameType? EndgameType);
     private async Task<MatchResult> RunMatchAsync(string whiteModel, string blackModel)
     {
         _appState.Reset();
         _appState.GameOptions = new GameOptions
         {
             White = PlayerType.AIModel,
-            WhiteModel = whiteModel,
+            WhiteModelId = whiteModel,
             Black = PlayerType.AIModel,
-            BlackModel = blackModel,
+            BlackModelId = blackModel,
             AiOnly = true,
             NoChat = true
 
         };
 
-        var chessService = new ChessService(_appState, _configuration, _loggerFactory, _httpClientFactory);
+        var chessService = new ChessService(_appState, _configuration, _loggerFactory, _httpClientFactory, _openRouterService);
         PieceColor? winner = null;
         EndgameType? endgameType = null;
         _appState.EndGameOccurred += (_, args) =>
@@ -90,8 +94,10 @@ public class EvalEngine
         };
 
         var currentColor = "White";
-        for (var halfMove = 0; halfMove < MaxHalfMoves && !_appState.IsGameEnded; halfMove++)
+        var count = 1;
+        for (var halfMove = 0; halfMove < MaxHalfMoves && !_appState.IsGameEnded && endgameType is null; halfMove++)
         {
+            
             try
             {
                 var response = await chessService.PlayChessChat(currentColor);
@@ -99,13 +105,15 @@ public class EvalEngine
                 {
                     break;
                 }
+
+                count++;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Match failure for {Color}", currentColor);
                 return currentColor.Equals("White", StringComparison.OrdinalIgnoreCase)
-                    ? new(MatchOutcome.BlackWin, _appState.ChessBoard.ToFen(), endgameType)
-                    : new(MatchOutcome.WhiteWin, _appState.ChessBoard.ToFen(), endgameType);
+                    ? new(MatchOutcome.BlackWin, blackModel, _appState.ChessBoard.ToFen(), endgameType, halfMove + 1, ex.ToString())
+                    : new(MatchOutcome.WhiteWin, whiteModel, _appState.ChessBoard.ToFen(), endgameType, halfMove + 1, ex.ToString());
             }
 
             if (_appState.IsGameEnded)
@@ -120,34 +128,31 @@ public class EvalEngine
         {
             if (winner.Equals(PieceColor.White))
             {
-                return new(MatchOutcome.WhiteWin, _appState.ChessBoard.ToFen(), endgameType);
+                return new(MatchOutcome.WhiteWin, whiteModel, _appState.ChessBoard.ToFen(), endgameType, count);
             }
 
             if (winner.Equals(PieceColor.Black))
             {
-                return new(MatchOutcome.BlackWin, _appState.ChessBoard.ToFen(), endgameType);
+                return new(MatchOutcome.BlackWin, blackModel, _appState.ChessBoard.ToFen(), endgameType, count);
             }
         }
 
         var eval = _appState.GameStateEval;
-        if (eval?.FavoredColor.Equals("White", StringComparison.OrdinalIgnoreCase) == true)
+        if (eval?.FavoredColor.Equals("White", StringComparison.OrdinalIgnoreCase) == true && endgameType is null && count >= 400)
         {
-            return new(MatchOutcome.WhiteWinPoints, _appState.ChessBoard.ToFen(), endgameType);
+            return new(MatchOutcome.WhiteWinPoints, whiteModel, _appState.ChessBoard.ToFen(), endgameType, count);
         }
-        else if (eval?.FavoredColor.Equals("Black", StringComparison.OrdinalIgnoreCase) == true)
+        else if (eval?.FavoredColor.Equals("Black", StringComparison.OrdinalIgnoreCase) == true && endgameType is null && count <= 400)
         {
-            return new(MatchOutcome.BlackWinPoints, _appState.ChessBoard.ToFen(), endgameType);
+            return new(MatchOutcome.BlackWinPoints, blackModel, _appState.ChessBoard.ToFen(), endgameType, count);
         }
-        return new(MatchOutcome.Draw, _appState.ChessBoard.ToFen(), endgameType);
+        return new(MatchOutcome.Draw, "", _appState.ChessBoard.ToFen(), endgameType, count);
     }
 
     private void ApplyOutcome(MatchOutcome outcome, string whiteModel, string blackModel,
-        EvalResult model1Result, EvalResult model2Result, string finalFen, EndgameType? endgameType)
+        EvalResult model1Result, EvalResult model2Result)
     {
-        model1Result.FinalBoardStates.Add(finalFen);
-        model2Result.FinalBoardStates.Add(finalFen);
-        model1Result.EndgameTypes.Add(endgameType);
-        model2Result.EndgameTypes.Add(endgameType);
+        
         switch (outcome)
         {
             case MatchOutcome.Draw:
@@ -227,27 +232,6 @@ public class EvalEngine
     private bool IsModel1(string modelId) =>
         string.Equals(modelId, _aiModel1, StringComparison.OrdinalIgnoreCase);
 
-    private enum MatchOutcome
-    {
-        Draw,
-        WhiteWin,
-        BlackWin,
-        WhiteWinPoints,
-        BlackWinPoints
-    }
+    
 
 }
-public class EvalResult(string aiModel)
-{
-    public string AIModel { get; } = aiModel;
-    public int Wins { get; set; }
-    public int WinsOnPoints { get; set; }
-    public int Losses { get; set; }
-    public int Draws { get; set; }
-    public int Failures { get; set; }
-    public List<EndgameType?> EndgameTypes { get; set; } = [];
-    public List<string> FinalBoardStates { get; set; } = [];
-
-}
-
-public record EvalSummary(EvalResult Model1Result, EvalResult Model2Result);

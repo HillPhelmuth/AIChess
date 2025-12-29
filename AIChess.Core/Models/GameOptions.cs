@@ -11,14 +11,25 @@ public class GameOptions
 {
     public PlayerType White { get; set; }
     public PlayerType Black { get; set; }
-    public string? WhiteModel { get; set; }
-    public string? BlackModel { get; set; }
 
+    public string? WhiteModelId
+    {
+        get => White == PlayerType.Human ? null : field;
+        set => field = value;
+    }
+
+    public string? BlackModelId
+    {
+        get => Black == PlayerType.Human ? null : field;
+        set => field = value;
+    }
+    public OpenRouterModel? WhiteModel { get; set; }
+    public OpenRouterModel? BlackModel { get; set; }
     public bool AiOnly
     {
         get
         {
-            if (!string.IsNullOrEmpty(WhiteModel) && !string.IsNullOrEmpty(BlackModel))
+            if (!string.IsNullOrEmpty(WhiteModelId) && !string.IsNullOrEmpty(BlackModelId) && White == PlayerType.AIModel && Black == PlayerType.AIModel)
                 field = true;
             return field;
         }
@@ -36,11 +47,11 @@ public class GameOptions
             return hasAI && aiHasAssociatedModel;
             bool AIHasModel()
             {
-                if (White == PlayerType.AIModel && string.IsNullOrEmpty(WhiteModel))
+                if (White == PlayerType.AIModel && string.IsNullOrEmpty(WhiteModelId))
                 {
                     return false;
                 }
-                if (Black == PlayerType.AIModel && string.IsNullOrEmpty(BlackModel))
+                if (Black == PlayerType.AIModel && string.IsNullOrEmpty(BlackModelId))
                 {
                     return false;
                 }

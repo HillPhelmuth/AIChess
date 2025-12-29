@@ -12,6 +12,6 @@ public static class ServiceExtensions
 {
 	public static IServiceCollection AddChessService(this IServiceCollection services)
 	{
-	 	return services.AddScoped<AppState>().AddScoped<ChessService>();
+	 	return services.AddScoped<AppState>().AddScoped<ChessService>().AddScoped<OpenRouterService>();
 	}
 }

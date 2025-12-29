@@ -252,7 +252,7 @@ public partial class ChessBoard
         }
     }
 
-    private readonly AutoEndgameRules autoEndgameRules = AutoEndgameRules.All;
+    private AutoEndgameRules autoEndgameRules = AutoEndgameRules.All;
     /// <summary>
     /// This property keeps track of auto-draw (endgame) rules that will be used to check for endgame
     /// </summary>
@@ -278,6 +278,7 @@ public partial class ChessBoard
     {
         executedMoves = new List<Move>();
         endGameProvider = new EndGameProvider(this);
+        endGameProvider.UpdateRules();
         headers = new Dictionary<string, string>();
         SetChessBeginSituation();
     }

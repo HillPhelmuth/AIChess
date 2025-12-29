@@ -41,21 +41,12 @@ public class ChessService
     private readonly ILoggerFactory _loggerFactory;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly StockFishService _stockFishService;
+    private readonly OpenRouterService _openRouterService;
     private string _color = "black";
     private static readonly JsonSerializerOptions JsonSerializerOptions = new() { WriteIndented = true };
     public event Action<string>? UpdateBoardFen;
     private bool _aiMoved;
-    private const string ChessPromptV1 =
-        """
-		You are a chess playing AI. You are playing as {{ $color }}. Given the available moves, make a move by invoking 'MovePiece'.
-		After moving, explain why you made that particular move in 200 words or less. Include other moves you considered and the benefits of your choice.
-		Do not start your explanation until you've successfully moved a piece.
-		## Available Moves
-		{{ $availableMoves }}
 
-		## Board State Ascii
-		{{ $boardState }}
-		""";
     private const string ChessPromptV2 =
         """
 		You are a chess-playing AI competing as {{ $color }}. Begin with a concise conceptual checklist (3-7 bullets) outlining your approach before selecting a move. Analyze the provided **Board State** and **Available Moves** to select your optimal next move. Prioritize strong tactical or strategic options and maintain a friendly conversation with your opponent.
@@ -182,12 +173,13 @@ public class ChessService
         **Game State**
         {{ $gameState }}
         """;
-    public ChessService(AppState appState, IConfiguration configuration, ILoggerFactory loggerFactory, IHttpClientFactory httpClientFactory)
+    public ChessService(AppState appState, IConfiguration configuration, ILoggerFactory loggerFactory, IHttpClientFactory httpClientFactory, OpenRouterService openRouterService)
     {
         _appState = appState;
         _configuration = configuration;
         _loggerFactory = loggerFactory;
         _httpClientFactory = httpClientFactory;
+        _openRouterService = openRouterService;
         _stockFishService = new StockFishService(httpClientFactory);
     }
     private Kernel CreateKernel(string model = "gpt-4o")
@@ -283,7 +275,7 @@ public class ChessService
     {
         Console.WriteLine($"PlayChessChat called with color: {color}");
         var model = GetModel(color);
-        var provider = GetProvider(color);
+        
         var kernel = CreateKernel(model);
         var pieceColor = color.Equals("Black", StringComparison.InvariantCultureIgnoreCase) ? PieceColor.Black : PieceColor.White;
 
@@ -296,7 +288,7 @@ public class ChessService
 
         }
         var moveList = string.Join("\n", moves);
-        var args = GetKernelArgs(model, moveList, color);
+        var args = GetKernelArgs(moveList, color);
         var promptTemplateFactory = new KernelPromptTemplateFactory();
         var promptTemplate = promptTemplateFactory.Create(new PromptTemplateConfig(ChessPromptV3));
         var renderedPrompt = await promptTemplate.RenderAsync(kernel, args, cancellationToken);
@@ -304,17 +296,17 @@ public class ChessService
         var chatService = kernel.Services.GetRequiredKeyedService<IChatCompletionService>("OpenRouter");
         var settings = GetExecutionSettings(model);
         var history = new ChatHistory("You are a chess playing AI");
-        //var result = await _httpClient.GetAsync($"{FenToImageBaseUrl}/{_appState.ChessBoard.ToFen()}", cancellationToken);
-        // Extract the PNG image data from the response
-        //var pngData = await result.Content.ReadAsByteArrayAsync(cancellationToken);
+        
 #if DEBUG
         //File.WriteAllBytes("image.png", pngData);
 #endif
-        if (OpenRouterModels.ModelSupportsImageInput(model))
+        if (await _openRouterService.ModelSupportsImageInputAsync(model))
         {
-            //var image = new ImageContent(new ReadOnlyMemory<byte>(pngData), "image/png");
+            var pngData = await PngFromFen(cancellationToken);
+            var image = new ImageContent(new ReadOnlyMemory<byte>(pngData), "image/png");
+            Console.WriteLine($"Image data: {pngData.Length} bytes");
             var text = new TextContent(renderedPrompt);
-            history.AddUserMessage([/*image,*/ text]);
+            history.AddUserMessage([image, text]);
         }
         else
         {
@@ -385,70 +377,19 @@ public class ChessService
         
     }
 
+    public async Task<byte[]> PngFromFen(CancellationToken cancellationToken = default)
+    {
+        var result = await _httpClient.GetAsync($"{FenToImageBaseUrl}/{_appState.ChessBoard.ToFen()}", cancellationToken);
+        // Extract the PNG image data from the response
+        var pngData = await result.Content.ReadAsByteArrayAsync(cancellationToken);
+        return pngData;
+    }
+
     private static HttpClient _httpClient = new();
     private const string FenToImageBaseUrl = "https://fen2image.chessvision.ai";
     public async Task<string> PlayChessNoChat(string color = "black", CancellationToken cancellationToken = default)
     {
         return await PlayChessChat(color, cancellationToken);
-        var model = GetModel(color);
-        var provider = GetProvider(color);
-        var kernel = CreateKernel(model);
-        var pieceColor = color.Equals("Black", StringComparison.InvariantCultureIgnoreCase) ? PieceColor.Black : PieceColor.White;
-        var moves = _appState.ChessBoard.Moves().Select(x => $"{x.OriginalPosition}{x.NewPosition}");
-        if (!moves.Any())
-        {
-            Console.WriteLine("No moves available, returning empty result.");
-            return "No moves available, returning empty result.";
-        }
-        var moveList = string.Join("\n", moves);
-        var args = GetKernelArgs(model, moveList, color)/* new KernelArguments() { ["boardStateFen"] = _appState.ChessBoard.ToFen(), ["availableMoves"] = moveList }*/;
-        Console.WriteLine($"PlayChessNoChat Args: {JsonSerializer.Serialize(args, JsonSerializerOptions)}");
-        var promptTemplateFactory = new KernelPromptTemplateFactory();
-        var promptTemplate = promptTemplateFactory.Create(new PromptTemplateConfig(ChessPromptV2));
-        var renderedPrompt = await promptTemplate.RenderAsync(kernel, args, cancellationToken);
-        var chatService = kernel.Services.GetRequiredKeyedService<IChatCompletionService>("OpenRouter");
-        var settings = new OpenAIPromptExecutionSettings() { ResponseFormat = typeof(ChessMove) };
-        var history = new ChatHistory("You are a chess playing AI");
-        var result = await _httpClient.GetAsync($"{FenToImageBaseUrl}/{_appState.ChessBoard.ToFen()}", cancellationToken);
-        // Extract the PNG image data from the response
-        var pngData = await result.Content.ReadAsByteArrayAsync(cancellationToken);
-#if DEBUG
-        File.WriteAllBytes("image.png", pngData);
-#endif
-        if (OpenRouterModels.ModelSupportsImageInput(model))
-        {
-            var image = new ImageContent(new ReadOnlyMemory<byte>(pngData), "image/png");
-            var text = new TextContent(renderedPrompt);
-            history.AddUserMessage([image, text]);
-        }
-        else
-        {
-            history.AddUserMessage(renderedPrompt);
-        }
-        //history.AddUserMessage(renderedPrompt);
-        var singleResult = await chatService.GetChatMessageContentAsync(history, settings, kernel, cancellationToken);
-        var moveResponse = singleResult.ToString().SanitizeOutput();
-        var move = JsonSerializer.Deserialize<ChessMove>(moveResponse);
-        Console.WriteLine($"Move Selected: {move.Move}");
-        var moveSuccess = _appState.Move(move!.Move!, true);
-        var tries = 0;
-        while (!moveSuccess && tries < 3)
-        {
-            history.AddAssistantMessage(moveResponse);
-            history.AddUserMessage("You made an invalid move. Try again.");
-            singleResult = await chatService.GetChatMessageContentAsync(history, settings, kernel, cancellationToken);
-            moveResponse = singleResult.ToString().SanitizeOutput();
-            move = JsonSerializer.Deserialize<ChessMove>(moveResponse);
-            Console.WriteLine($"Move Selected: {move.Move}");
-            moveSuccess = _appState.Move(move!.Move!, true);
-            tries++;
-        }
-        if (moveSuccess)
-        {
-            _appState.LastAiColor = pieceColor.Name;
-            UpdateBoardFen?.Invoke(_appState.ChessBoard.ToFen());
-        }
-       // return move;
 
     }
     public class ChessMove
@@ -503,43 +444,9 @@ public class ChessService
             return null;
         }
     }
-    private KernelArguments GetKernelArgs(string model, string moveList, string color, PromptExecutionSettings? settings = null)
+    private KernelArguments GetKernelArgs(string moveList, string color)
     {
-        //if (model.StartsWith("gemini"))
-        //{
-        //    settings ??= new GeminiPromptExecutionSettings()
-        //    {
-        //        ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
-        //        MaxTokens = 256,
-        //        Temperature = 0.2,
-        //        CandidateCount = 1
-        //    };
-        //    return new KernelArguments(settings)
-        //    {
-        //        ["availableMoves"] = moveList,
-        //        ["color"] = color,
-        //        ["boardState"] = _appState.ChessBoard.ToAscii(),
-        //        ["boardStateFen"] = _appState.ChessBoard.ToFen()
-        //    };
-        //}
-        //else if (model.StartsWith("gpt-4"))
-        //{
-        //    settings ??= new OpenAIPromptExecutionSettings
-        //    { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions, MaxTokens = 256, Temperature = 0.2 };
-        //    return new KernelArguments(settings)
-        //    {
-        //        ["availableMoves"] = moveList,
-        //        ["color"] = color,
-        //        ["boardState"] = _appState.ChessBoard.ToAscii(),
-        //        ["boardStateFen"] = _appState.ChessBoard.ToFen()
-        //    };
-        //}
-
-        var o3Settings = new OpenAIPromptExecutionSettings
-        {
-            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
-        };
-        return new KernelArguments(o3Settings)
+        return new KernelArguments()
         {
             ["availableMoves"] = moveList,
             ["color"] = color,
@@ -548,64 +455,11 @@ public class ChessService
         };
 
     }
-    public async Task<string> TempGeminiSimpleChat(string input)
-    {
-        var model = "gemini-1.5-pro-preview-0514";
-        var settings = new GeminiPromptExecutionSettings
-        {
-            ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
-            MaxTokens = 256,
-            Temperature = 0.2,
 
-        };
-        var kernel = CreateKernel(model);
-        var chatService = kernel.Services.GetRequiredKeyedService<IChatCompletionService>("Google");
-        var history = new ChatHistory("You are a chess expert.");
-        history.AddUserMessage(input);
-        var singleResult = await chatService.GetChatMessageContentAsync(history, settings, kernel);
-        return singleResult.ToString().SanitizeOutput();
-    }
     private PromptExecutionSettings GetExecutionSettings(string model)
     {
         return new OpenAIPromptExecutionSettings
         {
-            ResponseFormat = typeof(ChessMove)
-        };
-        if (model.StartsWith("gemini"))
-            return new GeminiPromptExecutionSettings
-            {
-                //ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
-                Temperature = 0.5,
-                ResponseMimeType = "application/json",
-                ResponseSchema = typeof(ChessMove),
-            };
-        if (model.Contains("gpt-4"))
-            return new OpenAIPromptExecutionSettings
-            {
-                //FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new FunctionChoiceBehaviorOptions() { AllowParallelCalls = false }),
-                Temperature = 0.5,
-                ResponseFormat = typeof(ChessMove)
-            };
-        if (model.Contains("gpt-5"))
-            return new OpenAIPromptExecutionSettings
-            {
-                //FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new FunctionChoiceBehaviorOptions()
-                //{ AllowParallelCalls = false }),
-                ResponseFormat = typeof(ChessMove),
-                ReasoningEffort = "low"
-            };
-        if (model.Contains("openai/") || model.Contains("Local"))
-        {
-            return new OpenAIPromptExecutionSettings
-            {
-                //FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new FunctionChoiceBehaviorOptions() { AllowParallelCalls = false }),
-                ResponseFormat = typeof(ChessMove),
-                ReasoningEffort = "low"
-            };
-        }
-        return new OpenAIPromptExecutionSettings
-        {
-            //FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new FunctionChoiceBehaviorOptions() { AllowParallelCalls = false }),
             ResponseFormat = typeof(ChessMove)
         };
     }
@@ -613,14 +467,7 @@ public class ChessService
     private string? GetModel(string nextMoveColor)
     {
         return nextMoveColor.Equals("black", StringComparison.InvariantCultureIgnoreCase) ?
-            _appState.GameOptions.BlackModel :
-            _appState.GameOptions.WhiteModel;
-    }
-
-    private string GetProvider(string nextMoveColor)
-    {
-        return nextMoveColor.Equals("black", StringComparison.InvariantCultureIgnoreCase) ?
-            _appState.GameOptions.Black.GetProvider() :
-            _appState.GameOptions.White.GetProvider();
+            _appState.GameOptions.BlackModelId :
+            _appState.GameOptions.WhiteModelId;
     }
 }

@@ -198,9 +198,11 @@ public class Move
         if (IsCheck)
         {
             if (IsMate)
-                builder.Append(" - #");
+                //builder.Append(" - #");
+                builder.Append(" - (mate)");
             else
-                builder.Append(" - +");
+                //builder.Append(" - +");
+                builder.Append(" - (check)");
         }
         else if (IsMate)
             builder.Append(" - $");

@@ -96,41 +96,45 @@ public partial class PlayChessPage : AppComponentBase, IDisposable
 
     protected override async void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(AppState.LastPlayerMove))
+        try
         {
-            var moveColor = AppState.LastPlayerMove.Piece.Color.Name;
-            var nextMoveColor = moveColor.Equals("White", StringComparison.InvariantCultureIgnoreCase) ? "Black" : "White";
-            Console.WriteLine($"Executing chess move because {e.PropertyName} changed");
-            if (AppState.GameOptions.NoChat)
-                await ExecuteChessMove(nextMoveColor);
-            else
-                await ExecuteChessMove(nextMoveColor);
-        }
-
-        if (e.PropertyName == nameof(AppState.LastAiColor) && AppState.GameOptions.AiOnly)
-        {
-            var nextMoveColor = AppState.LastAiColor.Equals("White", StringComparison.InvariantCultureIgnoreCase) ? "Black" : "White";
-            await Task.Delay(500);
-            Console.WriteLine($"Executing chess move because {e.PropertyName} changed");
-            await ExecuteChessMove(nextMoveColor);
-        }
-
-        if (e.PropertyName == nameof(AppState.LastAiColor) && !AppState.GameOptions.AiOnly)
-        {
-            var nextMoveColor = AppState.LastAiColor.Equals("White", StringComparison.InvariantCultureIgnoreCase) ? "Black" : "White";
-            await Task.Delay(500);
-            if (AppState.GameOptions.White.ToString() != "Human" && nextMoveColor == "White")
+            if (e.PropertyName == nameof(AppState.LastPlayerMove))
             {
+                var moveColor = AppState.LastPlayerMove.Piece.Color.Name;
+                var nextMoveColor = moveColor.Equals("White", StringComparison.InvariantCultureIgnoreCase) ? "Black" : "White";
                 Console.WriteLine($"Executing chess move because {e.PropertyName} changed");
                 await ExecuteChessMove(nextMoveColor);
             }
-            if (AppState.GameOptions.Black.ToString() != "Human" && nextMoveColor == "Black")
+
+            if (e.PropertyName == nameof(AppState.LastAiColor) && AppState.GameOptions.AiOnly)
             {
+                var nextMoveColor = AppState.LastAiColor.Equals("White", StringComparison.InvariantCultureIgnoreCase) ? "Black" : "White";
+                await Task.Delay(500);
                 Console.WriteLine($"Executing chess move because {e.PropertyName} changed");
                 await ExecuteChessMove(nextMoveColor);
             }
+
+            if (e.PropertyName == nameof(AppState.LastAiColor) && !AppState.GameOptions.AiOnly)
+            {
+                var nextMoveColor = AppState.LastAiColor.Equals("White", StringComparison.InvariantCultureIgnoreCase) ? "Black" : "White";
+                await Task.Delay(500);
+                if (AppState.GameOptions.White.ToString() != "Human" && nextMoveColor == "White")
+                {
+                    Console.WriteLine($"Executing chess move because {e.PropertyName} changed");
+                    await ExecuteChessMove(nextMoveColor);
+                }
+                if (AppState.GameOptions.Black.ToString() != "Human" && nextMoveColor == "Black")
+                {
+                    Console.WriteLine($"Executing chess move because {e.PropertyName} changed");
+                    await ExecuteChessMove(nextMoveColor);
+                }
+            }
+            base.OnPropertyChanged(sender, e);
         }
-        base.OnPropertyChanged(sender, e);
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
     }
 
     private async Task ExecuteChessMove(string nextMoveColor)
@@ -180,21 +184,17 @@ public partial class PlayChessPage : AppComponentBase, IDisposable
         await Task.Yield();
         yield return entireResponse;
     }
-    private bool _noChatMode;
-    private async Task ExecuteNoChatMove(string nextMoveColor)
-    {
-        await ChessService.PlayChessNoChat(nextMoveColor);
-    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var hasHuman = AppState.GameOptions.White == PlayerType.Human;
-        if (firstRender && !hasHuman && !AppState.GameOptions.AiOnly)
+        var isWhiteHuman = AppState.GameOptions.White == PlayerType.Human;
+        if (firstRender && !isWhiteHuman)
         {
             await ExecuteChessMove("White");
         }
         if (firstRender && AppState.GameOptions.AiOnly)
         {
-            await ExecuteNoChatMove("White");
+            await ExecuteChessMove("White");
         }
         await base.OnAfterRenderAsync(firstRender);
     }

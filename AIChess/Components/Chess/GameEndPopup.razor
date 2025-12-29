@@ -15,9 +15,9 @@
             else
             {
                 <span>
-                 @($"{EndGameEventArgs.EndgameInfo.WonSide.ToString().ToUpper()} wins!")
+                 @($"{EndGameEventArgs.EndgameInfo.WonSide?.ToString().ToUpper()} wins!")
                  <br/>
-                    <img src="@($"images/{EndGameEventArgs.EndgameInfo.WonSide.ToString().ToLower()}-wins.png")" style="width:125px;height:125px" alt="@($"{EndGameEventArgs.EndgameInfo.WonSide.ToString().ToLower()}-wins")" />
+                    <img src="@($"images/{EndGameEventArgs.EndgameInfo.WonSide?.ToString().ToLower()}-wins.png")" style="width:125px;height:125px" alt="@($"{EndGameEventArgs.EndgameInfo.WonSide?.ToString().ToLower()}-wins")" />
                 </span>
             }
         </RadzenText>

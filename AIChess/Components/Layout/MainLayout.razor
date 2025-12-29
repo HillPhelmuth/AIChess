@@ -21,9 +21,13 @@
 			<RadzenPanelMenuItem Text="Talk Chess" Icon="question_answer" Path="chat" />
 		</RadzenPanelMenu>
 	</RadzenSidebar>
-	<RadzenBody Style="padding: 0px 0px 0 0; height:100vh" @onclick="CloseSidebars">
-		@Body
-	</RadzenBody>
+    <RadzenBody Style="padding: 0px 0px 0 0; height:100vh" @onclick="CloseSidebars">
+        <div style="position:absolute; top: 1rem; left: 1rem;">
+            <a href="">Home</a>
+            <a href="eval">Model v Model Eval</a>
+        </div>
+        @Body
+    </RadzenBody>
 </RadzenLayout>
 
 <div id="blazor-error-ui">

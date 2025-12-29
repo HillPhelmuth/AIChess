@@ -10,19 +10,34 @@ public class OpenRouterModels
 {
     [JsonPropertyName("data")]
     public List<OpenRouterModel> Data { get; set; } = [];
-
+    private static OpenRouterModels? _modelsWithToolsAndStructuredOutputs;
     public static List<OpenRouterModel> GetModelsWithToolsAndStructuredOutputs()
     {
-        var allModelData = FileHelper.ExtractFromAssembly<OpenRouterModels>("OpenRouterModels.json");
-        return allModelData.Data
-            .Where(model => model.SupportedParameters.Contains("tools") && model.SupportedParameters.Contains("structured_outputs") ).OrderBy(x => x.Id)
-            .ToList();
+        _modelsWithToolsAndStructuredOutputs ??= FileHelper.ExtractFromAssembly<OpenRouterModels>("OpenRouterModels.json");
+        return _modelsWithToolsAndStructuredOutputs.GetModelsWithToolsAndStructuredOutputs();
     }
 
     public static bool ModelSupportsImageInput(string modelId)
     {
         var availableModels = GetModelsWithToolsAndStructuredOutputs();
         var model = availableModels.FirstOrDefault(m => m.Id.Equals(modelId, StringComparison.OrdinalIgnoreCase));
+        return model?.Architecture.InputModalities.Contains("image") ?? false;
+    }
+}
+public static class OpenRouterModelExtensions
+{
+    public static bool SupportsParameter(this OpenRouterModel model, string parameter)
+    {
+        return model.SupportedParameters.Contains(parameter);
+    }
+    public static List<OpenRouterModel> GetModelsWithToolsAndStructuredOutputs(this OpenRouterModels allModelData, decimal maxPromptPrice = 3.0m, decimal maxCompletionPrice = 12.0m)
+    {
+        return allModelData.Data
+            .Where(model => model.SupportedParameters.Contains("tools") && model.SupportedParameters.Contains("structured_outputs") && model.Architecture.OutputModalities.Contains("text") && model.Pricing.PromptPerMillion() <= maxPromptPrice && model.Pricing.CompletionPerMillion() <= maxCompletionPrice).OrderBy(x => x.Id)
+            .ToList();
+    }
+    public static bool ModelSupportsImageInput(this OpenRouterModel model)
+    {
         return model?.Architecture.InputModalities.Contains("image") ?? false;
     }
 }
@@ -102,10 +117,27 @@ public class DefaultParameters
 public class Pricing
 {
     [JsonPropertyName("prompt")]
-    public string Prompt { get; set; }
+    public string? Prompt { get; set; }
+
+    public decimal? PromptPerMillion()
+    {
+        if (decimal.TryParse(Prompt, out var promptCost))
+        {
+            return promptCost * 1_000_000;
+        }
+        return null;
+    }
 
     [JsonPropertyName("completion")]
     public string Completion { get; set; }
+    public decimal? CompletionPerMillion()
+    {
+        if (decimal.TryParse(Completion, out var completionCost))
+        {
+            return completionCost * 1_000_000;
+        }
+        return null;
+    }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("request")]

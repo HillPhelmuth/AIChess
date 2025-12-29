@@ -3,6 +3,7 @@ using AIChess.Core;
 using Microsoft.AspNetCore.Components;
 using System.Text.Json;
 using AIChess.Core.Models;
+using AIChess.Core.Services;
 using AIChess.ModelEvals;
 
 namespace AIChess.Components.Pages;
@@ -18,12 +19,18 @@ public partial class Home
 	private IHttpClientFactory HttpClientFactory { get; set; } = default!;
 	[Inject]
 	private EvalEngine EvalEngine { get; set; } = default!;
+	[Inject]
+	private OpenRouterService OpenRouterService { get; set; } = default!;
     private string _input;
 	private string _output;
     
 
-    private List<string> AvailableModels =>
-        OpenRouterModels.GetModelsWithToolsAndStructuredOutputs().Select(x => x.Id).ToList();
+    private Dictionary<string, bool>? _availableModels;
+    protected override async Task OnInitializedAsync()
+    {
+        _availableModels ??= (await OpenRouterService.GetModelsAsync()).ToDictionary(x => x.Id, x => x.ModelSupportsImageInput());
+        await base.OnInitializedAsync();
+    }
 
     private class DataGenInput
     {
@@ -35,8 +42,8 @@ public partial class Home
 		_isBusy = true;
 		StateHasChanged();
 		await Task.Delay(1);
-        var model1 = _gameOptions.WhiteModel;
-		var model2 = _gameOptions.BlackModel;
+        var model1 = _gameOptions.WhiteModelId;
+		var model2 = _gameOptions.BlackModelId;
 		var results = await EvalEngine.EvaluateAsync(model1, model2, 5);
 		_output = JsonSerializer.Serialize(results, new JsonSerializerOptions { WriteIndented = true });
         var modelName1 = model1.Split('/')[1];

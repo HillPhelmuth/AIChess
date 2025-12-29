@@ -46,7 +46,7 @@ public class AppState : INotifyPropertyChanged
     }
     private void ChessBoard_OnCaptured(object sender, CaptureEventArgs e)
     {
-        Logs.Insert(0, $"{e.CapturedPiece} Captured");
+        //Logs.Insert(0, $"{e.CapturedPiece} Captured");
     }
 
     public List<string> Logs { get; set; } = [];
@@ -128,6 +128,11 @@ public class AppState : INotifyPropertyChanged
         {
             EndGameOccurred?.Invoke(this, new EndgameEventArgs(ChessBoard, endedException.EndgameInfo));
             Console.WriteLine("Handled Game Ended Exception");
+            return false;
+        }
+        catch (ChessInvalidMoveException invalidMoveException)
+        {
+            
             return false;
         }
         catch (Exception ex)

@@ -1,4 +1,135 @@
 ﻿@page "/eval"
-<h3>Eval Page</h3>
+@using AIChess.Core.Models
+@using AIChess.ModelEvals
+@inherits AppComponentBase
+<PageTitle>Model Evaluation</PageTitle>
 
-<h5>Coming soon...</h5>
+<div class="eval-container">
+    <div class="eval-header">
+        <RadzenText TextStyle="TextStyle.H4" TextAlign="TextAlign.Center" Style="color: #ffffff; margin-bottom: 8px; font-weight: 600;">
+            <RadzenIcon Icon="analytics" Style="color: #f6ad55; font-size: 2rem; margin-bottom: 8px;"></RadzenIcon> 
+            Model Evaluation
+        </RadzenText>
+        <RadzenText TextStyle="TextStyle.Body2" TextAlign="TextAlign.Center" Style="color: #a0aec0; margin-bottom: 24px; font-style: italic;">
+            Compare AI models head-to-head in chess matches
+        </RadzenText>
+    </div>
+
+    <div class="eval-setup-card">
+        <RadzenTemplateForm Data="_gameOptions" TItem="GameOptions" Submit="EvaluateModels">
+            <div class="eval-form-group">
+                <RadzenFormField Text="Model 1 (White)" Style="width:100%">
+                    <ChildContent>
+                        <RadzenDropDown Name="WhiteModel" Data="_availableModels" @bind-Value="_gameOptions.WhiteModelId" ValueProperty="Key" 
+                                        Style="width: 100%; background-color: #4a5568; border: 1px solid #2d3748; color: #ffffff;" 
+                                        AllowFiltering="true" Placeholder="Select Model 1">
+                            <Template Context="model">
+                                <div style="display:flex; flex-direction:row; align-items:center; color:white">
+                                    @model.Key 
+                                    <RadzenIcon Icon="image" IconColor="yellow" Visible="@(model.Value)"></RadzenIcon>
+                                </div>
+                            </Template>
+                        </RadzenDropDown>
+                    </ChildContent>
+                    <Helper>
+                        <RadzenRequiredValidator Component="WhiteModel"></RadzenRequiredValidator>
+                    </Helper>
+                </RadzenFormField>
+            </div>
+
+            <div class="eval-form-group">
+                <RadzenFormField Style="width:100%" Text="Model 2 (Black)">
+                    <ChildContent>
+                        <RadzenDropDown Name="BlackModel" Data="_availableModels" @bind-Value="_gameOptions.BlackModelId" ValueProperty="Key" 
+                                        Style="width: 100%; background-color: #4a5568; border: 1px solid #2d3748; color: #ffffff;" 
+                                        AllowFiltering="true" Placeholder="Select Model 2">
+                            <Template Context="model">
+                                <div style="display:flex; flex-direction:row; align-items:center; color:white">
+                                    @model.Key 
+                                    <RadzenIcon Icon="image" IconColor="yellow" Visible="@(model.Value)"></RadzenIcon>
+                                </div>
+                            </Template>
+                        </RadzenDropDown>
+                    </ChildContent>
+                    <Helper>
+                        <RadzenRequiredValidator Component="BlackModel"></RadzenRequiredValidator>
+                    </Helper>
+                </RadzenFormField>
+            </div>
+
+            <div class="eval-form-group">
+                <RadzenLabel Text="Number of Matches" Style="color: #e2e8f0; margin-bottom: 8px; display: block; font-weight: 500;"></RadzenLabel>
+                <RadzenNumeric @bind-Value="_numberOfMatches" Min="1" Max="20" 
+                               Style="width: 100%; border: 1px solid #2d3748; color: #ffffff;"></RadzenNumeric>
+            </div>
+
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Start Evaluation" Icon="play_arrow"
+                          IsBusy="_isBusy" BusyText="Evaluating..."
+                          Disabled="@(_gameOptions.WhiteModelId == null || _gameOptions.BlackModelId == null)"
+                          class="eval-button"
+                          Style="width: 100%; padding: 12px; font-size: 16px; font-weight: 600; background-color: #f6ad55; border: none; border-radius: 8px; color: #1a202c;">
+            </RadzenButton>
+        </RadzenTemplateForm>
+    </div>
+
+    @if (_matchResults.Any())
+    {
+        <div class="match-results-container">
+            <div class="match-results-header">
+                <RadzenText TextStyle="TextStyle.H5" Style="color: #ffffff; font-weight: 600;">
+                    Match Results (@_matchResults.Count / @_numberOfMatches)
+                </RadzenText>
+            </div>
+
+            <div class="match-results-grid">
+                @foreach (var (result, index) in _matchResults.Select((r, i) => (r, i)))
+                {
+                    <div class="match-result-card @GetOutcomeClass(result.WinningModel)">
+                        <div class="match-result-header">
+                            <span class="match-number">Match @(index + 1)</span>
+                            <span class="match-outcome">@result.Outcome</span>
+                        </div>
+                        <div class="match-result-body">
+                            <div class="match-detail">
+                                <RadzenIcon Icon="emoji_events" Style="color: #f6ad55;"></RadzenIcon>
+                                <span>Winner: @result.WinningModel</span>
+                            </div>
+                            <div class="match-detail">
+                                <RadzenIcon Icon="sports_score" Style="color: #63b3ed;"></RadzenIcon>
+                                <span>Endgame: @result.EndgameReason</span>
+                            </div>
+                            <div class="match-detail">
+                                <RadzenIcon Icon="straighten" Style="color: #9ae6b4;"></RadzenIcon>
+                                <span>Moves: @result.NumberOfMoves</span>
+                            </div>
+                            @if (!string.IsNullOrEmpty(result.Error))
+                            {
+                                <div class="match-detail match-error">
+                                    <RadzenIcon Icon="error" Style="color: #fc8181;"></RadzenIcon>
+                                    <span>@result.Error</span>
+                                </div>
+                            }
+                        </div>
+                        <div>
+                            <img src="@result.ImgSrc" width="300" height="300" alt="Chess Board Position" title="Endgame position" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private string GetOutcomeClass(string winningModel)
+    {
+        var model1 = _gameOptions.WhiteModelId;
+        var model2 = _gameOptions.BlackModelId;
+        if (model1 == winningModel)
+            return "outcome-model1-win";
+        if (model2 == winningModel)
+            return "outcome-model2-win"; 
+        return "outcome-draw"; 
+        
+    }
+}
