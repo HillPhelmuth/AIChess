@@ -4,6 +4,8 @@ AIChess is a sophisticated chess platform built with .NET and Blazor that allows
 
 ![Chess Hero](AIChess/wwwroot/images/chess-play-image-chatgpt.png)
 
+### [Try the demo](https://ai-chess.azurewebsites.net/)
+
 ## Features
 
 - **Play vs. AI**: Challenge a wide range of AI models including OpenAI (GPT-4, GPT-3.5), Google Gemini, and many others via OpenRouter.
